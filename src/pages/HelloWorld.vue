@@ -8,6 +8,7 @@ import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 import { RGBELoader } from "three/examples/jsm/loaders/RGBELoader.js";
 import { Reflector } from "three/examples/jsm/objects/Reflector.js";
+import {Background} from "../pages/backgroud.ts"
 
 // 引入 DRACOLoader
 import { DRACOLoader } from "three/examples/jsm/loaders/DRACOLoader.js";
@@ -39,9 +40,15 @@ export default {
       const light = new THREE.AmbientLight(0xffffff); // 柔和的白光
       scene.add(light);
       const directionalLight = new THREE.DirectionalLight(0xffffff, 0.5);
-      directionalLight.position.set(0, 10, 0);
-      directionalLight.castShadow = true;
+      directionalLight.position.set(1, 1, 1);
+      //  const directionalLight1 = new THREE.DirectionalLight(0xffffff, 0.5);
+      // directionalLight1.position.set(-10, 10, 10);
+      //  const directionalLight2 = new THREE.DirectionalLight(0xffffff, 0.5);
+      // directionalLight2.position.set(-10, 10, -10);
+      // directionalLight.castShadow = true;
       scene.add(directionalLight);
+      // scene.add(directionalLight1);
+      // scene.add(directionalLight2);
       const renderer = new THREE.WebGLRenderer({
         antialias: true,
         // alpha: true,
@@ -65,7 +72,8 @@ export default {
         // multisample: 0,
       };
       const plane = new Reflector(geometry, options);
-      plane.lookAt(0, 1, 0);
+      // plane.lookAt(0, 1, 0);
+      plane.rotation.x = -0.5 * Math.PI
       scene.add(plane);
       renderer.setPixelRatio(window.devicePixelRatio);
       renderer.setSize(w, h);
@@ -130,6 +138,7 @@ export default {
             });
           }
         });
+        new Background(scene)
         const { box3, center } = this.getBoxInfo(gltf.scene);
         gltf.scene.position.set(0, -box3.min.y, 0);
         console.log(box3, center);
@@ -160,14 +169,16 @@ export default {
       });
 
       // const textureLoader  = THREE.textureLoader()
-      const clock = new THREE.Clock();
+      // const clock = new THREE.Clock();
       const render = () => {
-        const time = clock.getElapsedTime();
+        // const time = clock.getElapsedTime();
         // points.rotation.y = time * 0.5;
         // material.uniforms.uTime.value = time;
         if (this.wheel) {
-          this.wheel.rotation.z = time * 1;
+          // this.wheel.rotation.z = time * 1;
         }
+        plane.updateMatrix()
+        
         renderer.render(scene, camera);
         controls.update();
         requestAnimationFrame(render);

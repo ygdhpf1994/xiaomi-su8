@@ -1,19 +1,10 @@
 <template>
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
-  <!-- <component :is="currentView" /> -->
-  <!-- <ShaderTest msg="Welcome to Your Vue.js App"/> -->
+  <router-view/>
 </template>
 
-<script>
-import HelloWorld from './components/HelloWorld.vue'
-// import ShaderTest from './pages/shaderTest.vue'
-export default {
-  name: 'App',
-  components: {
-    HelloWorld,
-    // ShaderTest
-  }
-}
+<script lang="ts">
+import { Vue } from 'vue-class-component';
+export default class App extends Vue {}
 </script>
 
 <style>
@@ -23,5 +14,6 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+  margin-top: 60px;
 }
 </style>

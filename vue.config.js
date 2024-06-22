@@ -8,6 +8,10 @@ module.exports = defineConfig({
         {
           test: /\.(hdr)$/,
           use: 'file-loader'
+        },
+        {
+          test: /\.ts$/,
+          use: 'ts-loader'
         }
       ]
     }

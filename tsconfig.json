@@ -1,0 +1,12 @@
+{
+    "compilerOptions": {
+      "target": "es5",
+      "module": "commonjs",
+      "strict": true,
+      "typeRoots": ["node_modules/@types"]
+    },
+    "exclude": [
+      "node_modules"
+    ],
+    "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.vue"]
+  }
