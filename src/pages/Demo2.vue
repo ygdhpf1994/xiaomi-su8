@@ -2,7 +2,7 @@
  * @Author: ygdhpf1994 1270253125@qq.com
  * @Date: 2024-06-22 23:22:35
  * @LastEditors: ygdhpf1994 1270253125@qq.com
- * @LastEditTime: 2024-06-23 08:51:58
+ * @LastEditTime: 2024-06-23 20:35:41
  * @FilePath: /xiaomi-su8/src/pages/Demo1.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -14,7 +14,7 @@
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 export default {
-    name: "HelloWorld",
+    name: "DeMo",
     props: {
         msg: String,
     },
@@ -61,10 +61,7 @@ export default {
                 void main() {
                   vUv = uv;
                   vec3 aposition = position;
-                  vec3 bposition = position;
-                  aposition = normalize(aposition);
-                  bposition = bposition - (bposition - aposition) * abs(sin(uTime));
-                  gl_Position = projectionMatrix * modelViewMatrix * vec4(aposition, 1.0);
+                  gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
                 }
             `;
             const fragment = `
@@ -72,37 +69,43 @@ export default {
                 uniform float uTime;
                 void main() {   
                     
-                    //float dist = fract((length(vUv - vec2(0.5)) / 0.707 - uTime * 0.1) * 5.0);
-                    // 绘制渐变圆形
-                    //float dist = length(vUv);
-                    //float radius = 0.5;
-                    vec2 mask1 = vec2(fract(vUv.x * 6.0));
-                    vec2 mask2 = vec2(fract(vUv.y * 6.0));
-                    //vec3 color = vec3(step(radius, dist));
-                    vec2 color = abs(mask1 - mask2);
-                    gl_FragColor = vec4(color, 1.0, 1.0);
+                    gl_FragColor = vec4(1.0, 0.0, 1.0, 1.0);
               }
             `;
 
             // const material = new THREE.MeshBasicMaterial({ color: 0x0ca678 });
+            const loader = new THREE.TextureLoader()
             const material = new THREE.ShaderMaterial({
                 uniforms: {
                     uTime: { value: 0 },
                 },
                 vertexShader: vertexShader,
                 fragmentShader: fragment,
+                wireframe: true,
+                map: loader.load(require('../assets/equth.jpg'))
             });
 
-            const geometry = new THREE.BoxGeometry(2, 2, 2, 30, 30, 30);
+            const geometry = new THREE.SphereGeometry(1, 30, 30);
+
+            const geometry1 = new THREE.SphereGeometry(1, 30, 30);
+
+            var material1 = new THREE.MeshBasicMaterial({ map: loader.load(require('../assets/equth.jpg')), side: THREE.DoubleSide });
+
+            var cube1 = new THREE.Mesh(geometry, material);
+
             //const geometry = new THREE.SphereGeometry(1, 32, 16);
             console.log(geometry);
-            const cube = new THREE.Mesh(geometry, material);
+            const cube = new THREE.Mesh(geometry1, material1);
+            cube1.position.set(3,0,0)
             scene.add(cube);
+            scene.add(cube1);
             console.log(cube);
-            let time = 0;
+            const clock = new THREE.Clock();
+            cube.rotation.order = "ZYX";
+            cube.rotation.z = 0.2
             const render = () => {
-                time+=0.02
-                material.uniforms.uTime.value = time
+                const time = clock.getElapsedTime();
+                cube.rotation.y = time * 0.5
                 renderer.render(scene, camera);
                 controls.update();
                 requestAnimationFrame(render);
