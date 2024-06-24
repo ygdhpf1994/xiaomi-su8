@@ -14,6 +14,7 @@ module.exports = defineConfig({
           use: 'ts-loader'
         }
       ]
-    }
+    },
+    devtool: 'source-map'
   }
 })

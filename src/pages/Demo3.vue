@@ -108,17 +108,30 @@ export default {
       scene.add(axesHelper);
       const loader = new THREE.TextureLoader();
       const geometry1 = new THREE.SphereGeometry(15, 30, 30);
+      
+      const loader1 = new THREE.TextureLoader()
+      
 
-      var material1 = new THREE.MeshBasicMaterial({
-        map: loader.load(require("../assets/equth.jpg")),
+      var material1 = new THREE.MeshPhongMaterial({
+        map: loader.load(require("../assets/earth-4096.png")),
+        normalMap: loader1.load(require("../assets/earth_normal.jpg")),
+        side: THREE.DoubleSide,
+      });
+      var material2= new THREE.MeshPhongMaterial({
+        map: loader.load(require("../assets/earth-4096.png")),
         side: THREE.DoubleSide,
       });
 
       var cube1 = new THREE.Mesh(geometry1, material1);
+      var cube2 = new THREE.Mesh(geometry1, material2);
       cube1.position.set(-0, 15, 0.2);
+      cube2.position.set(-0, 15, 40)
       cube1.castShadow = true;
+      cube2.receiveShadow = true;
+      cube2.castShadow = true;
       cube1.receiveShadow = true;
       scene.add(cube1);
+      scene.add(cube2);
       const parameters = {
         elevation: 2,
         azimuth: 180,
@@ -142,12 +155,13 @@ export default {
       renderTarget = pmremGenerator.fromScene(sceneEnv);
       scene.add(sky);
 
-      scene.environment = renderTarget.texture;
+      // scene.environment = renderTarget.texture;
 
       const clock = new THREE.Clock();
       const render = () => {
         const time = clock.getElapsedTime();
         cube1.rotation.y = time * 0.5;
+        cube2.rotation.y = time * 0.5;
         renderer.render(scene, camera);
         camera.lookAt(0, 0.1, 0);
         water.material.uniforms["time"].value += 1.0 / 60.0;
