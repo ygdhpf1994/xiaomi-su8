@@ -99,9 +99,6 @@ export default {
       spotLight.castShadow = true;
       spotLight.position.set(2, 2, 2);
       scene.add(spotLight);
-      const directionalLight = new THREE.DirectionalLight(0xffffff, 0.5);
-      directionalLight.position.set(1, 1, 1);
-      scene.add(directionalLight);
       const controls = new OrbitControls(camera, renderer.domElement);
       // 添加坐标轴辅助器
       const axesHelper = new THREE.AxesHelper(50);
@@ -122,16 +119,39 @@ export default {
         side: THREE.DoubleSide,
       });
 
+      const geometry2 = new THREE.BoxGeometry(20, 20, 10);
+      const loader2 = new THREE.TextureLoader()
+      // const loader3 = new THREE.TextureLoader()
+      const baseTexture = loader2.load(require("../assets/plaster.jpg"))
+      const normalTexture = loader2.load(require("../assets/plaster-normal.jpg"))
+      var material3 = new THREE.MeshStandardMaterial({
+        map: baseTexture,
+        normalMap: normalTexture,
+        // side: THREE.DoubleSide,
+        normalScale: new THREE.Vector2(1, 1),  
+      });
+      //  var material4 = new THREE.MeshStandardMaterial({
+      //   map: baseTexture,
+      //   side: THREE.DoubleSide,
+      // });
+      var box2 = new THREE.Mesh(geometry2, material3);
+      var box3 = new THREE.Mesh(geometry2, material3);
+
+
       var cube1 = new THREE.Mesh(geometry1, material1);
       var cube2 = new THREE.Mesh(geometry1, material2);
       cube1.position.set(-0, 15, 0.2);
       cube2.position.set(-0, 15, 40)
+      box2.position.set(-0, 15, -30)
+      box3.position.set(-35, 15, -30)
       cube1.castShadow = true;
       cube2.receiveShadow = true;
       cube2.castShadow = true;
       cube1.receiveShadow = true;
       scene.add(cube1);
       scene.add(cube2);
+      scene.add(box2)
+      scene.add(box3)
       const parameters = {
         elevation: 2,
         azimuth: 180,
@@ -157,11 +177,11 @@ export default {
 
       // scene.environment = renderTarget.texture;
 
-      const clock = new THREE.Clock();
+      // const clock = new THREE.Clock();
       const render = () => {
-        const time = clock.getElapsedTime();
-        cube1.rotation.y = time * 0.5;
-        cube2.rotation.y = time * 0.5;
+        // const time = clock.getElapsedTime();
+        // cube1.rotation.y = time * 0.5;
+        // cube2.rotation.y = time * 0.5;
         renderer.render(scene, camera);
         camera.lookAt(0, 0.1, 0);
         water.material.uniforms["time"].value += 1.0 / 60.0;
