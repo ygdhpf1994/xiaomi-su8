@@ -130,7 +130,8 @@ export default {
         // side: THREE.DoubleSide,
         normalScale: new THREE.Vector2(1, 1),  
       });
-      //  var material4 = new THREE.MeshStandardMaterial({
+      console.log(material3)
+      //  var material4 = new THREE.MeshStandardMaterial({m
       //   map: baseTexture,
       //   side: THREE.DoubleSide,
       // });

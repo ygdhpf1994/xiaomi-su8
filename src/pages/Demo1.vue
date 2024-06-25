@@ -42,7 +42,7 @@ export default {
             });
             renderer.setPixelRatio(window.devicePixelRatio);
             renderer.setSize(w, h);
-            renderer.setClearColor(0xbbdefb, 1);
+            renderer.setClearColor(0x00ffff, 1);
             document.body.appendChild(renderer.domElement);
             const light = new THREE.AmbientLight(0xffffff); // 柔和的白光
             scene.add(light);
@@ -61,26 +61,29 @@ export default {
                 void main() {
                   vUv = uv;
                   vec3 aposition = position;
-                  vec3 bposition = position;
-                  aposition = normalize(aposition);
-                  bposition = bposition - (bposition - aposition) * abs(sin(uTime));
                   gl_Position = projectionMatrix * modelViewMatrix * vec4(aposition, 1.0);
                 }
             `;
             const fragment = `
                 varying vec2 vUv;
                 uniform float uTime;
+                float plot(vec2 st, float pct){
+                    return  smoothstep( pct-0.02, pct, st.y) -
+                        smoothstep( pct, pct+0.02, st.y);
+                }
+
                 void main() {   
-                    
-                    //float dist = fract((length(vUv - vec2(0.5)) / 0.707 - uTime * 0.1) * 5.0);
-                    // 绘制渐变圆形
-                    //float dist = length(vUv);
-                    //float radius = 0.5;
-                    vec2 mask1 = vec2(fract(vUv.x * 6.0));
-                    vec2 mask2 = vec2(fract(vUv.y * 6.0));
-                    //vec3 color = vec3(step(radius, dist));
-                    vec2 color = abs(mask1 - mask2);
-                    gl_FragColor = vec4(color, 1.0, 1.0);
+                    float dist = length(vUv - vec2(0.5));
+                    // float dist = distance(vUv, vec2(0.5));
+                    float radius = 0.25;
+                    float outerRadius = 0.4;
+                    if (dist > outerRadius) {
+                        discard;
+                    } else if (dist < radius) {
+                        gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0);
+                    } else {
+                        gl_FragColor = vec4(1, (dist - radius) / (outerRadius - radius), (dist - radius) / (outerRadius - radius), 1.0);
+                    }
               }
             `;
 
@@ -91,6 +94,7 @@ export default {
                 },
                 vertexShader: vertexShader,
                 fragmentShader: fragment,
+                side: THREE.DoubleSide
             });
 
             const geometry = new THREE.BoxGeometry(2, 2, 2, 30, 30, 30);
@@ -101,8 +105,8 @@ export default {
             console.log(cube);
             let time = 0;
             const render = () => {
-                time+=0.02
-                material.uniforms.uTime.value = time
+                time += 0.02;
+                material.uniforms.uTime.value = time;
                 renderer.render(scene, camera);
                 controls.update();
                 requestAnimationFrame(render);
