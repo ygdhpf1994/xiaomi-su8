@@ -16,5 +16,6 @@ module.exports = defineConfig({
       ]
     },
     devtool: 'source-map'
-  }
+  },
+  parallel: false
 })

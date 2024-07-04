@@ -1,5 +1,11 @@
 <template>
-  <div class="hello"></div>
+  <div class="hello">
+    <div class="go" @click="go">
+      gogogo
+    </div>
+    <div id="canvas1">
+    </div>
+  </div>
 </template>
 
 <script>
@@ -87,7 +93,9 @@ export default {
         texture.mapping = THREE.EquirectangularReflectionMapping;
         scene.environment = texture;
       });
-      document.body.appendChild(renderer.domElement);
+      const canvas1 = document.getElementById('canvas1')
+
+      canvas1.appendChild(renderer.domElement);
 
       // const clock = new THREE.Clock();
       // 创建GLTF加载器对象
@@ -211,6 +219,9 @@ export default {
         box3,
       };
     },
+    go() {
+      this.$router.push('/demo3')
+    }
   },
 };
 </script>
@@ -230,5 +241,13 @@ li {
 }
 a {
   color: #42b983;
+}
+
+.go {
+  width: 30px;
+  height: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 </style>
