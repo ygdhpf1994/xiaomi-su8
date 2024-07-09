@@ -20,6 +20,9 @@ importers:
       three:
         specifier: ^0.164.1
         version: 0.164.1
+      three-freeform-controls:
+        specifier: ^0.3.0
+        version: 0.3.0(three@0.164.1)
       ts-loader:
         specifier: ^9.5.1
         version: 9.5.1(typescript@5.4.5)(webpack@5.91.0)
@@ -2836,6 +2839,10 @@ packages:
   mz@2.7.0:
     resolution: {integrity: sha512-z81GNO7nnYMEhrGh9LeymoE4+Yr0Wn5McHIZMK5cfQCl+NDX08sCZgUc9/6MHni9IWuFLm1Z3HTCXu2z9fN62Q==}
 
+  nanoevents@7.0.1:
+    resolution: {integrity: sha512-o6lpKiCxLeijK4hgsqfR6CNToPyRU3keKyyI6uwuHRvpRTbZ0wXw51WRgyldVugZqoJfkGFrjrIenYH3bfEO3Q==}
+    engines: {node: ^14.0.0 || ^16.0.0 || >=18.0.0}
+
   nanoid@3.3.7:
     resolution: {integrity: sha512-eSRppjcPIatRIMC1U6UngP8XFcz8MQWGQdt1MTBQ7NaAmvXDfvNxbvWV3x2y6CdEUciCSsDHDQZbhYaB8QEo2g==}
     engines: {node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1}
@@ -3694,6 +3701,12 @@ packages:
     engines: {node: '>= 10.13.0'}
     peerDependencies:
       webpack: ^4.27.0 || ^5.0.0
+
+  three-freeform-controls@0.3.0:
+    resolution: {integrity: sha512-Or1iSnpLb0sThHoRtuaCV5RyhTvPhKwUg+0n77OIr61lq6+63NA66VVRB/CU6XnAH5SmlcTzPzueX+l1rMZFxw==}
+    engines: {node: '>=10.0.0'}
+    peerDependencies:
+      three: '>=0.150.1'
 
   three@0.164.1:
     resolution: {integrity: sha512-iC/hUBbl1vzFny7f5GtqzVXYjMJKaTPxiCxXfrvVdBi1Sf+jhd1CAkitiFwC7mIBFCo3MrDLJG97yisoaWig0w==}
@@ -7183,6 +7196,8 @@ snapshots:
       object-assign: 4.1.1
       thenify-all: 1.6.0
 
+  nanoevents@7.0.1: {}
+
   nanoid@3.3.7: {}
 
   natural-compare-lite@1.4.0: {}
@@ -8052,6 +8067,11 @@ snapshots:
       neo-async: 2.6.2
       schema-utils: 3.3.0
       webpack: 5.91.0
+
+  three-freeform-controls@0.3.0(three@0.164.1):
+    dependencies:
+      nanoevents: 7.0.1
+      three: 0.164.1
 
   three@0.164.1: {}
 
