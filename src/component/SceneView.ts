@@ -23,7 +23,7 @@ export default class SceneView {
         this.camera.lookAt(new THREE.Vector3(0, 0, 0));
         this.renderer.setPixelRatio(window.devicePixelRatio);
         this.renderer.setSize(attrs.w, attrs.h);
-        this.renderer.setClearColor(0xffffff, 1);
+        this.renderer.setClearColor(0x000000, 1);
        
         const light = new THREE.AmbientLight(0xffffff); // 柔和的白光
         this.scene.add(light);
