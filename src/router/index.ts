@@ -47,6 +47,10 @@ const  routes = [
     {
         path: '/demo7',
         component: () => import("../pages/Demo7.vue")
+    },
+    {
+        path: '/demo8',
+        component: () => import("../pages/Demo-suipian.vue")
     }
 ]
 
