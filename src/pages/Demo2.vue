@@ -65,13 +65,12 @@ export default {
                 }
             `;
             const fragment = `
+                varying vec2 vUv;
                 uniform float uTime;
-
-                void main() {
-                    vec2 uv = gl_FragCoord.xy;
-                    vec3 color = vec3(sin(uTime), 0.0, 0.0); // 使用sin函数基于时间变化颜色
-                    gl_FragColor = vec4(color, 1.0);
-                }
+                void main() {   
+                    
+                    gl_FragColor = vec4(1.0, 0.0, 1.0, 1.0);
+              }
             `;
 
             // const material = new THREE.MeshBasicMaterial({ color: 0x0ca678 });
@@ -106,7 +105,6 @@ export default {
             cube.rotation.z = 0.2
             const render = () => {
                 const time = clock.getElapsedTime();
-                material.uniforms.uTime.value = time * 0.5
                 cube.rotation.y = time * 0.5
                 renderer.render(scene, camera);
                 controls.update();

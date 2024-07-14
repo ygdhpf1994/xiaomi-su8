@@ -55,6 +55,10 @@ onMounted(() => {
         uniform float uRandom;
         uniform float uLayerId;
         uniform vec3 uCenter;
+        varying vec2 vUv;
+        varying vec3 vNormal;
+        varying vec4 vMvPosition;
+        varying vec3 vPosition;
 
         mat2 rotation2d(float angle){
             float s=sin(angle);
@@ -102,19 +106,39 @@ onMounted(() => {
         }
         void main(){
             vec3 p=position;
-            // vec3 N=normal;
+            vec3 N=normal;
+            
 
             p=distort(p);
+            N=distort(N);
             gl_Position = projectionMatrix * modelViewMatrix * vec4(p, 1.0);
+            vUv=uv;
+            vNormal=N;
+            vMvPosition=modelViewMatrix*vec4(p,1.);
+            vPosition=p;
         }
     `;
     const fragmentShader = `
+        varying vec2 vUv;
         uniform float iTime;
+        varying vec3 vNormal;
+        varying vec4 vMvPosition;
+        varying vec3 vPosition;
+        uniform sampler2D uTexture;
+        uniform vec3 uLightPosition;
+        uniform vec3 uLightColor;
+        uniform float uRandom;
+        uniform vec2 uMouse;
         void main(){
-            gl_FragColor=vec4(0.2, 0.2,0.2, 1.0);
+            vec2 p=vUv / 50.0;
+            vec4 tex=texture2D(uTexture,p);
+            gl_FragColor=tex;
         }
     `;
     let i = 0.0;
+    const loader = new THREE.TextureLoader()
+    
+    let Texture = loader.load('https://s2.loli.net/2022/11/20/8E6yHP9kAawc7Wr.jpg')
     const materialList = []
     arr.forEach((item, index) => {
         const shape = createShape(item);
@@ -137,7 +161,7 @@ onMounted(() => {
                     value: 0
                 },
                 uTexture: {
-                    value: 0,
+                    value: Texture,
                 },
                 uLightPosition: {
                     value: new THREE.Vector3(-0.2, -0.2, 3),
