@@ -19,7 +19,10 @@
     "vue-class-component": "^8.0.0-0",
     "vue-loader": "^17.4.2",
     "vue-router": "4",
-    "vue-template-compiler": "^2.7.16"
+    "vue-template-compiler": "^2.7.16",
+    "webpack": "^5.74.0",
+    "webpack-dev-server": "^4.11.1",
+    "webpack-merge": "^5.10.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.16",
@@ -33,7 +36,9 @@
     "@vue/eslint-config-typescript": "^9.1.0",
     "eslint": "^7.32.0",
     "eslint-plugin-vue": "^8.0.3",
-    "typescript": "~4.5.5"
+    "typescript": "~4.5.5",
+    "ts-node": "^10.9.2",
+    "html-webpack-plugin": "^5.5.0"
   },
   "eslintConfig": {
     "root": true,

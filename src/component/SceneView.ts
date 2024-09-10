@@ -2,7 +2,9 @@ import * as THREE from 'three'
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 export interface attrs {
     w: number,
-    h: number
+    h: number,
+    bgc: string,
+    cd: number
 }
 export default class SceneView {
     private scene: THREE.Scene
@@ -17,13 +19,15 @@ export default class SceneView {
         this.renderer = new THREE.WebGLRenderer({
             antialias: true,
             // alpha: true,
+            stencil: true  
         });
         this.controls = new OrbitControls(this.camera, this.renderer.domElement);
-        this.camera.position.set(0, 0, 50);
+        this.camera.position.set(0, 0, attrs.cd);
         this.camera.lookAt(new THREE.Vector3(0, 0, 0));
         this.renderer.setPixelRatio(window.devicePixelRatio);
         this.renderer.setSize(attrs.w, attrs.h);
-        this.renderer.setClearColor(0xffffff, 1);
+        this.renderer.setClearColor(attrs.bgc, 1);
+        this.renderer.localClippingEnabled = true;
        
         const light = new THREE.AmbientLight(0xffffff); // 柔和的白光
         this.scene.add(light);
@@ -38,5 +42,9 @@ export default class SceneView {
 
     add(entity: THREE.Object3D) {
         this.scene.add(entity)
+    }
+
+    remove(entity: THREE.Object3D) {
+        this.scene.remove(entity)
     }
 }

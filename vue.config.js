@@ -15,7 +15,11 @@ module.exports = defineConfig({
         }
       ]
     },
-    devtool: 'source-map'
+    devtool: 'source-map',
+    output: {
+      publicPath: '/'
+    }
   },
-  parallel: false
+  parallel: false,
+
 })

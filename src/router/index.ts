@@ -51,12 +51,20 @@ const  routes = [
     {
         path: '/demo8',
         component: () => import("../pages/Demo-suipian.vue")
+    },
+    {
+        path: '/demo9',
+        component: () => import("../pages/Demo-nine.vue")
+    },
+    {
+        path: '/demo10',
+        component: () => import("../pages/Demo-10.vue")
     }
 ]
 
 const router = createRouter({
-    history: createWebHistory(),
-    routes
+    history: createWebHistory(process.env.BASE_URL),
+    routes,
 })
 
 export default router

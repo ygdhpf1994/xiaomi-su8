@@ -1,7 +1,7 @@
 <template>
   <div class="hello">
-    <div class="go" @click="go">
-      gogogo
+    <div class="go" v-for="item in routeList" :key="item" @click="go(item)">
+      gogogo{{item}}
     </div>
     <div id="canvas1">
     </div>
@@ -27,7 +27,8 @@ export default {
   data() {
     return {
       scene: null,
-      wheel: null
+      wheel: null,
+      routeList: [1,2,3,4,5,6,7,8,9,10]
     };
   },
   mounted() {
@@ -219,8 +220,8 @@ export default {
         box3,
       };
     },
-    go() {
-      this.$router.push('/demo3')
+    go(item) {
+      this.$router.push(`/demo${item}`)
     }
   },
 };

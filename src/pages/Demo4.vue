@@ -34,7 +34,7 @@ export default {
             });
             renderer.setPixelRatio(window.devicePixelRatio);
             renderer.setSize(w, h);
-            renderer.setClearColor(0x000000, 1);
+            renderer.setClearColor(0xffffff, 1);
             document.body.appendChild(renderer.domElement);
             // const light = new THREE.AmbientLight(0xffff00); // 柔和的红光
             // scene.add(light);
@@ -50,18 +50,35 @@ export default {
             const axesHelper = new THREE.AxesHelper(50);
             scene.add(axesHelper);
             const geometry = new THREE.PlaneGeometry(3, 3);
-            const material = new THREE.MeshBasicMaterial({
-                color: 0xffffff,
-                side: THREE.DoubleSide,
+            const vertexShader = `
+                varying vec2 vUv;
+                varying vec3 vNormal;
+                void main(){
+                    vUv = uv;
+                    vNormal = normal;
+                    gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+                }
+            `
+            const fragmentShader = `
+                varying vec2 vUv;
+                void main(){
+                    
+                    gl_FragColor = vec4(vUv, 0.5,1.0);
+                }
+            `
+            const material = new THREE.ShaderMaterial({
+                vertexShader: vertexShader,
+                fragmentShader: fragmentShader,
+                // side: DoubleSide
             });
             const palne = new THREE.Mesh(geometry, material);
             palne.lookAt(0, 1, 0);
             scene.add(palne);
             const sphereGeometry = new THREE.SphereGeometry(1, 32, 32);
             const sphereMaterial = new THREE.MeshBasicMaterial({
-                color: 0xffffff,
+                color: 0xff0000,
                 // emissive: 0xff0000,
-                blending: THREE.AdditiveBlending,
+                // blending: THREE.AdditiveBlending,
             });
             // 创建发光的球体
             const sphere = new THREE.Mesh(sphereGeometry, sphereMaterial);
@@ -69,7 +86,7 @@ export default {
             scene.add(sphere);
             // 创建光晕效果
             var glowMaterial = new THREE.MeshBasicMaterial({
-                color: 0xffff00,
+                color: 0x110000,
                 transparent: true,
                 opacity: 0.1,
                 blending: THREE.AdditiveBlending,
@@ -77,7 +94,7 @@ export default {
             var glowSphere = new THREE.Mesh(sphereGeometry, glowMaterial);
             glowSphere.scale.multiplyScalar(1.2);
             glowSphere.position.set(0, 2, 0);
-            scene.add(glowSphere);
+            // scene.add(glowSphere);
             const render = () => {
                 renderer.render(scene, camera);
                 controls.update();
