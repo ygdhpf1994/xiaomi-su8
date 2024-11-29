@@ -1,12 +1,17 @@
 {
     "compilerOptions": {
-      "target": "es5",
-      "module": "commonjs",
-      "strict": true,
-      "typeRoots": ["node_modules/@types"]
+      "target": "ES5",
+      "module": "CommonJS",
+      // "allowJs": true,
+      // "strict": true,
+      "esModuleInterop": true,
+      "allowSyntheticDefaultImports": true,
+      "types": ["node"],
+      // "typeRoots": ["node_modules/@types"],
+      "moduleResolution": "node",
     },
     "exclude": [
       "node_modules"
     ],
-    "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.vue"]
+    "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.vue", "tools/webpack.dev.ts",  "tools/webpack.common.ts"]
   }

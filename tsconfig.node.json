@@ -1,0 +1,9 @@
+{
+    "compilerOptions": {
+      "noEmit": true,
+      "module": "CommonJS",
+      "allowSyntheticDefaultImports": true,
+      "downlevelIteration": true
+    },
+    "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.vue", "tools/webpack.dev.ts",  "tools/webpack.common.ts"]
+  }
