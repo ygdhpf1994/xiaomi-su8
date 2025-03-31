@@ -59,6 +59,26 @@ const  routes = [
     {
         path: '/demo10',
         component: () => import("../pages/Demo-10.vue")
+    },
+    {
+        path: '/demo11',
+        component: () => import("../pages/Demo-11.vue")
+    },
+    {
+        path: '/demo12',
+        component: () => import("../pages/Demo-12.vue")
+    },
+    {
+        path: '/demo13',
+        component: () => import("../pages/Demo-13.vue")
+    },
+    {
+        path: '/demo14',
+        component: () => import("../pages/Demo-14.vue")
+    },
+    {
+        path: '/demo15',
+        component: () => import("../pages/Demo-15.vue")
     }
 ]
 

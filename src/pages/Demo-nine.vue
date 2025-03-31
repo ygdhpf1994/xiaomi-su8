@@ -67,9 +67,10 @@ onMounted(() => {
     const poGroup = new THREE.Group();
     const planeGeom = new THREE.PlaneGeometry(6, 6);
     const planeMat = new THREE.MeshStandardMaterial({
-        color: 0xf3f9ff,
+        color: 0x000000,
         metalness: 0,
         roughness: 0.75,
+        colorWrite : false,
         clippingPlanes: [plane],
 
         stencilWrite: true,

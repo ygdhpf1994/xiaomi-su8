@@ -129,6 +129,7 @@ export default {
         normalMap: normalTexture,
         // side: THREE.DoubleSide,
         normalScale: new THREE.Vector2(1, 1),  
+        depthWrite: false
       });
       console.log(material3)
       //  var material4 = new THREE.MeshStandardMaterial({m
@@ -136,6 +137,7 @@ export default {
       //   side: THREE.DoubleSide,
       // });
       var box2 = new THREE.Mesh(geometry2, material3);
+      console.log(box2)
       var box3 = new THREE.Mesh(geometry2, material3);
 
 
